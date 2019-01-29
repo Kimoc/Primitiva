@@ -7,23 +7,27 @@ public class Bombo50 {
     private int[] bombo50;
     private int complementario;
     private boolean esRepetido;
-
+    private int[] numerosBombo;
 
 
     //Contructor bombo de [0-49]
     //Saca un array de 7 numeros 6 + el complementario
     public Bombo50(){
         bombo50=new int[7];
-        int random;
-        boolean esRepetido=false;
+        numerosBombo=new int[49];
+        //rellenamos bombo
+        rellenarBombo();
+        //
+        int numeroRandom;
+        int punteroPosicionFinal=numerosBombo.length-1;
         for(int i=0;i<bombo50.length;i++){
-            random= Lib.random(0,49);
-            for(int z=0;z>i;z++){
-                if(random==bombo50[z]){
-                    esRepetido=true;
-                }
-            }
-            bombo50[i]=random;
+            numeroRandom=Lib.random(0,punteroPosicionFinal);
+            bombo50[i]=numerosBombo[numeroRandom];
+            numerosBombo[numeroRandom]=numerosBombo[punteroPosicionFinal];
+            punteroPosicionFinal--;
+
+
+
         }
 
 
@@ -36,5 +40,9 @@ public class Bombo50 {
     public int getComplementario() {
         return complementario=bombo50[bombo50.length-1];
     }
-
+    public void rellenarBombo(){
+        for(int i =1 ; i<=numerosBombo.length;i++){
+            numerosBombo[i-1]=i;
+        }
+    }
 }

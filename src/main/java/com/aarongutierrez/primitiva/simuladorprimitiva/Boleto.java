@@ -13,29 +13,27 @@ public class Boleto {
     private static Scanner lector;
     private static int[] boleto;
     private int reintegro; //Reintegro
-    private boolean esRepetido; //Si un numero ya se ha repetido
-
+    private int[] numerosBoleto;
 
     //CONSTRUCTORES
 
     //Boleto por defecto generara un boleto aleatorio
     public Boleto(){
-
+        numerosBoleto=new int[49];
+        //rellenamos array numeros boleto(igual que un bombo)
+        rellenarNumerosDisponibles();
         boleto=new int[6];
         int random;
-        boolean esRepetido=false;
+        int puntero=numerosBoleto.length-1;
         //rellena array con los 6 numeros principales
         for(int i=0;i<boleto.length;i++){
-            //generar random para rellenar
-            random=Lib.random(0,49);
-            //comprueba que no este repetido
-            for(int z=0;z>i;z++){
-                if(random==boleto[z]){
-                    esRepetido=true;
-                }
-            }
-            boleto[i]=random;
+            random=Lib.random(0,puntero);
+            boleto[i]=numerosBoleto[random];
+            numerosBoleto[random]=numerosBoleto[puntero];
+            puntero--;
         }
+
+
         //añade el complementario
         reintegro=Lib.random(0,9);
     }
@@ -68,25 +66,6 @@ public class Boleto {
     }
 
 
-    public int getNum1(){
-        return boleto[0];
-    }
-    public int getNum2(){
-        return  boleto[1];
-    }
-    public int getNum3(){
-        return boleto[2];
-    }
-    public int getNum4(){
-        return boleto[3];
-    }
-    public int getNum5(){
-        return boleto[4];
-    }
-    public int getNum6(){
-        return boleto[5];
-    }
-
 
     //METODOS
 
@@ -95,7 +74,6 @@ public class Boleto {
         Boleto boletoJugador;
         int numero;
         lector=new Scanner(System.in);
-        boolean estaRepetido=false;
         boleto=new int[6];
         int reintegro;
 
@@ -117,7 +95,6 @@ public class Boleto {
             //Comprueba que no este repetido
             for(int z=0;z<i;z++){
                 if(numero==boleto[z]){
-                    estaRepetido=true;
                     System.out.println("El numero ya se ha elegido no se pueden repetir");
                 }
             }
@@ -129,8 +106,14 @@ public class Boleto {
 
 
         boletoJugador=new Boleto(boleto,reintegro);
+
         return boletoJugador;
 
+    }
+    public void rellenarNumerosDisponibles(){
+        for (int i=1; i<=numerosBoleto.length;i++){
+            numerosBoleto[i-1]=i;
+        }
     }
 
 }

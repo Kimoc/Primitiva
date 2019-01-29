@@ -21,6 +21,7 @@ public class Sorteo {
 
     //Genera nuevo sorteo
     public Sorteo(){
+        //todo quitar new bombos por metodo rllenarbombos
         bombo50 =new Bombo50();
         bomboReintegro=new BomboReintegro();
         premio=PREMIOS.SIN_PREMIO;
@@ -68,12 +69,13 @@ public class Sorteo {
         do{
             Lib.borrarPantalla();
             sorteo=new Sorteo();
-            System.out.println("\n"+sorteo.getSorteoString());
-            System.out.println("Reintegro: "+sorteo.getReintegro());
             comprobarPremioConReintegro();
             contadorIntentos++;
             System.out.println("Intentos: "+contadorIntentos);
         }while (sorteo.getPremio()==PREMIOS.SIN_PREMIO);
+        System.out.println("\n"+sorteo.getSorteoString());
+        System.out.println("Reintegro: "+sorteo.getReintegro());
+        System.out.println("Intentos: "+contadorIntentos);
     }
     //METODO JUGAR HASTA OBTENER PREMIO SIN REINTEGRO
     public static void jugarHastaObtenerPremioSinReintegro(Sorteo sorteo){
@@ -83,6 +85,7 @@ public class Sorteo {
             sorteo=new Sorteo();
             comprobarPremioSinReintegro();
             contadorIntentos++;
+            System.out.print(contadorIntentos);
             System.out.println("Intentos: "+contadorIntentos);
 
         }while (sorteo.getPremio()==PREMIOS.SIN_PREMIO);
@@ -150,7 +153,6 @@ public class Sorteo {
             sorteo=new Sorteo();
             comprobarEspecial();
             contador++;
-            System.out.println(contador);
         }while(sorteo.getPremio()!=PREMIOS.ESPECIAL);
         System.out.println("\n"+sorteo.getSorteoString());
         System.out.println("Reintegro: "+sorteo.getReintegro());

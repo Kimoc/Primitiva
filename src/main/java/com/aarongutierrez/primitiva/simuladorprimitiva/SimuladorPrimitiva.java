@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class SimuladorPrimitiva {
 
     private Scanner lector;
-
+//todo quitar el instanciar boleto
 
     private static Boleto boleto;
     private static Sorteo sorteo;
