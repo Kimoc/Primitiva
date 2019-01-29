@@ -22,6 +22,7 @@ public class Sorteo {
     //Genera nuevo sorteo
     public Sorteo(){
         //todo quitar new bombos por metodo rllenarbombos
+
         bombo50 =new Bombo50();
         bomboReintegro=new BomboReintegro();
         premio=PREMIOS.SIN_PREMIO;
@@ -91,7 +92,7 @@ public class Sorteo {
         }while (sorteo.getPremio()==PREMIOS.SIN_PREMIO);
 
     }
-    //METODO JUGAR 1000 VECES
+    //METODO JUGAR 10000 VECES
     public static void jugar10000veces(Sorteo sorteo){
         int contador=0;
         int contadorPremioPrimera=0;
@@ -109,8 +110,9 @@ public class Sorteo {
             System.out.println("Jugada: "+(contador+1));
 
             comprobarPremioConReintegro();
-            if(PREMIOS.REINTEGRO==sorteo.getPremio()){
-                contadorPremioReintegro++;
+
+            if(PREMIOS.ESPECIAL==sorteo.getPremio()){
+
             }
             else if(PREMIOS.PRIMERA==sorteo.getPremio()){
                 contadorPremioPrimera++;
@@ -127,8 +129,8 @@ public class Sorteo {
             else if(PREMIOS.QUINTA==sorteo.getPremio()){
                 contadorPremioQuinta++;
             }
-            else if(PREMIOS.ESPECIAL==sorteo.getPremio()){
-
+            else if(PREMIOS.REINTEGRO==sorteo.getPremio()){
+                contadorPremioReintegro++;
             }
             contador++;
         }while (contador<10000);
