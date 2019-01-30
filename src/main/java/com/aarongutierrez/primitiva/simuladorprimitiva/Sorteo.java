@@ -133,7 +133,7 @@ public class Sorteo {
                 contadorPremioReintegro++;
             }
             contador++;
-        }while (contador<100000000);
+        }while (contador<10000);
 
         System.out.println("********************");
         System.out.println("***    PREMIOS     *");
@@ -188,6 +188,10 @@ public class Sorteo {
             System.out.println("\n"+PREMIOS.REINTEGRO);
             System.out.println("\nRecupera su dinero");
         }
+        else {
+            premio=PREMIOS.SIN_PREMIO;
+            System.out.println("\nLo sentimos no hay premio para su boleto");
+        }
 
         if(contador>5&&getReintegro()==reintegroJugada){
             premio=PREMIOS.ESPECIAL;
@@ -198,7 +202,7 @@ public class Sorteo {
             System.out.println("\n"+PREMIOS.PRIMERA+"!!");
             System.out.println("\nHA GANADO!!!");
         }
-        else if(contador>5&&acertoComplementario){
+        else if(contador>4&&acertoComplementario){
             premio=PREMIOS.SEGUNDA;
             System.out.println("\n"+PREMIOS.SEGUNDA);
             System.out.println("\nHA GANADO!!!");
@@ -219,9 +223,6 @@ public class Sorteo {
             System.out.println("\nHA GANADO!!!");
         }
 
-        else {
-            System.out.println("\nLo sentimos no hay premio para su boleto");
-        }
         return premio;
 
     }
@@ -251,7 +252,7 @@ public class Sorteo {
             System.out.println("\n"+PREMIOS.PRIMERA+"!!");
             System.out.println("\nHA GANADO!!!");
         }
-        else if(contador>5&&acertoComplementario){
+        else if(contador>4&&acertoComplementario){
             premio=PREMIOS.SEGUNDA;
             System.out.println("\n"+PREMIOS.SEGUNDA);
             System.out.println("\nHA GANADO!!!");
@@ -271,8 +272,8 @@ public class Sorteo {
             System.out.println("\n"+PREMIOS.QUINTA+"!!");
             System.out.println("\nHA GANADO!!!");
         }
-
         else {
+            premio=PREMIOS.SIN_PREMIO;
             System.out.println("\nLo sentimos no hay premio para su boleto");
         }
         return premio;
@@ -289,7 +290,7 @@ public class Sorteo {
                 }
             }
         }
-        if(contador==6&&reintegroSorteo==reintegroJugada){
+        if(contador==6&&getReintegro()==reintegroJugada){
             premio=PREMIOS.ESPECIAL;
             System.out.println("\n"+premio+"!\n");
             System.out.println("\nFUCK YEAHH!!! PREMIO ESPECIAL!!! DING DING DING MONEY MONEY");
