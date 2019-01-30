@@ -76,8 +76,8 @@ public class SimuladorPrimitiva {
                         //Jugar 10000 veces
                         case 4:
                             sorteo.jugar10000veces();
-                            Lib.pausa();
                             mostrarJugada(boleto);
+                            Lib.pausa();
                             break;
                         //Jugar hasta obtener el premio espcial
                         case 5:
@@ -85,6 +85,11 @@ public class SimuladorPrimitiva {
                             sorteo.jugarHastaGanarPremioEspecial();
                             mostrarJugada(boleto);
                             Lib.pausa();
+                            break;
+                        case 0:
+                            System.out.println("Gracias por Jugar");
+                            Lib.pausa();
+                            opcion=-1;
                             break;
                     }
                     break;
