@@ -63,7 +63,6 @@ public class SimuladorPrimitiva {
                             break;
                         //Jugar hasta obtener premio
                         case 2:
-
                             sorteo.jugarHastaObtenerPremio();
                             mostrarJugada(boleto);
                             Lib.pausa();
