@@ -76,30 +76,35 @@ public class Boleto {
         lector=new Scanner(System.in);
         boleto=new int[6];
         int reintegro;
+        boolean estarepetido=false;
 
         System.out.println("*****************************");
         System.out.println("*     Rellenar Boleto       *");
         System.out.println("*****************************\n");
 
         //Bucle para rellenar el boleto sin reintegro
+
         for (int i=0;i<boleto.length;i++){
+            do {
+                estarepetido=false;
+                do {
+                    System.out.println(i + 1 + ".- Introduzca un numero [0-49]:");
+                    numero = lector.nextInt();
+                    if (numero < 0 || numero > 49) {
+                        System.out.println("Numero incorrecto introduzca numero [0-49");
+                    }
+                } while (numero < 0 || numero > 49);
 
-              do{
-                System.out.println(i+1+".- Introduzca un numero [0-49]:");
-                numero=lector.nextInt();
-                if(numero<0||numero>49){
-                    System.out.println("Numero incorrecto introduzca numero [0-49");
+                //Comprueba que no este repetido
+                for (int z = 0; z < i; z++) {
+                    if (numero == boleto[z]) {
+                        System.out.println("El numero ya se ha elegido no se pueden repetir");
+                        estarepetido=true;
+                    }
                 }
-            }while(numero<0||numero>49);
 
-            //Comprueba que no este repetido
-            for(int z=0;z<i;z++){
-                if(numero==boleto[z]){
-                    System.out.println("El numero ya se ha elegido no se pueden repetir");
-                }
-            }
-            boleto[i]=numero;
-
+            }while(estarepetido);
+            boleto[i] = numero;
         }
         //añade un complementario random
         reintegro= Lib.random(0,9);

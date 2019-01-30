@@ -8,9 +8,11 @@ public class SimuladorPrimitiva {
 
     private static Boleto boleto;
     private static Sorteo sorteo;
+    private boolean boletoComprado;
 
     public SimuladorPrimitiva(){
         lector = new Scanner(System.in);
+        boletoComprado=false;
         int opcion;
         do{
             //Menu Principal
@@ -26,6 +28,7 @@ public class SimuladorPrimitiva {
                             mostrarJugada(boleto);
                             System.out.println("\nGracias por su compra y mucha suerte");
                             Lib.pausa();
+                            boletoComprado=true;
                             break;
                         case 2:
                             //Jugador se le da un Boleto aleatorio
@@ -34,6 +37,7 @@ public class SimuladorPrimitiva {
                             mostrarJugada(boleto);
                             System.out.println("\nGracias por su compra y mucha suerte");
                             Lib.pausa();
+                            boletoComprado=true;
                             break;
                         case 0:
                             //Vuelve a menu Principal
@@ -124,8 +128,13 @@ public class SimuladorPrimitiva {
             /*
              *Validacion input opcion en consola
              */
+
             if(opcion<0||opcion>3){
                 System.out.println("Opcion incorrecta! Elija una opcion del menu[0-3]");
+            }
+            if(opcion==3&&boletoComprado==false){
+                System.out.println("ERROR! No ha comprado un boleto .Seleccione opcion [1] para comprar boleto. ");
+                opcion=-1;
             }
         }while(opcion<0||opcion>3);
         return opcion;
