@@ -125,15 +125,21 @@ public class SimuladorPrimitiva {
             System.out.println(" 0.Salir\n");
             opcion =lector.nextInt();
             lector.nextLine();
-            /*
-             *Validacion input opcion en consola
-             */
 
+            //Validaciones  input opcion en consola
+
+            //Comprueba que el que elije una opcion disponible
             if(opcion<0||opcion>3){
                 System.out.println("Opcion incorrecta! Elija una opcion del menu[0-3]");
             }
+            //Comprueba que el boleto  se ha comprado
             if(opcion==3&&boletoComprado==false){
-                System.out.println("ERROR! No ha comprado un boleto .Seleccione opcion [1] para comprar boleto. ");
+                System.out.println("ERROR! No ha comprado un boleto. Seleccione opcion [1] para comprar boleto. ");
+                opcion=-1;
+            }
+            //Comprueba que el boleto se ha comprado
+            if(opcion==2&&boletoComprado==false){
+                System.out.println("ERROR! No ha comprado un boleto. Seleccione opcion [1] para comprar boleto. ");
                 opcion=-1;
             }
         }while(opcion<0||opcion>3);
