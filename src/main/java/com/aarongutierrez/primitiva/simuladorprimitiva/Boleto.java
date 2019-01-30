@@ -84,7 +84,7 @@ public class Boleto {
         //Bucle para rellenar el boleto sin reintegro
         for (int i=0;i<boleto.length;i++){
 
-            do{
+              do{
                 System.out.println(i+1+".- Introduzca un numero [0-49]:");
                 numero=lector.nextInt();
                 if(numero<0||numero>49){

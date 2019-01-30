@@ -9,11 +9,11 @@ public class Sorteo {
     private  enum PREMIOS{PRIMERA,SEGUNDA,TERCERA,QUARTA,QUINTA,ESPECIAL,REINTEGRO,SIN_PREMIO}
     private  static Bombo50 bombo50;
     private  static BomboReintegro bomboReintegro;
-    private static int reintegroSorteo;
-    private static int complementarioSorteo;
     private static Boleto jugada;
-    private static int reintegroJugada;
     private static PREMIOS premio;
+    private static int reintegroSorteo;
+    private static int reintegroJugada;
+    private static int complementarioSorteo;
     private static int[] numerosJugada;
     private static int[] numerosSorteo;
 
@@ -21,11 +21,9 @@ public class Sorteo {
 
     //Genera nuevo sorteo
     public Sorteo(){
-        //todo quitar new bombos por metodo rllenarbombos
 
         bombo50 =new Bombo50();
         bomboReintegro=new BomboReintegro();
-        premio=PREMIOS.SIN_PREMIO;
         jugada=SimuladorPrimitiva.getBoletoComprado();
         reintegroJugada=SimuladorPrimitiva.getReintegroBoletoComprado();
         reintegroSorteo=bomboReintegro.getReintegro();
@@ -48,52 +46,56 @@ public class Sorteo {
     public PREMIOS getPremio(){
         return premio;
     }
-    private static void setPremio(PREMIOS premio) {
-        Sorteo.premio = premio;
+    private void setPremio(PREMIOS premio) {
+        this.premio = premio;
     }
 
 
     //METODOS JUGAR SORTEOS
 
     //METODO JUGADA UNICA
-    public static void JugadaUnica(Sorteo sorteo){
+    public  void jugadaUnica(){
 
-        System.out.println("\n"+sorteo.getSorteoString());
-        System.out.println("Reintegro: "+sorteo.getReintegro());
+        System.out.println("\n"+getSorteoString());
+        System.out.println("Reintegro: "+getReintegro());
         comprobarPremioConReintegro();
 
     }
     //METDODO JUGAR HASTA OBTENER PREMIO
-    public static void JugarHastaObtenerPremio(Sorteo sorteo){
+    public  void jugarHastaObtenerPremio(){
         int contadorIntentos=0;
 
         do{
             Lib.borrarPantalla();
-            sorteo=new Sorteo();
+            bombo50.rellenarBombo();
+            bombo50.nuevoNumeroSorteo();
+            bomboReintegro.generarReintegro();
             comprobarPremioConReintegro();
             contadorIntentos++;
             System.out.println("Intentos: "+contadorIntentos);
-        }while (sorteo.getPremio()==PREMIOS.SIN_PREMIO);
-        System.out.println("\n"+sorteo.getSorteoString());
-        System.out.println("Reintegro: "+sorteo.getReintegro());
+        }while (getPremio()==PREMIOS.SIN_PREMIO);
+        System.out.println("\n"+getSorteoString());
+        System.out.println("Reintegro: "+getReintegro());
         System.out.println("Intentos: "+contadorIntentos);
     }
     //METODO JUGAR HASTA OBTENER PREMIO SIN REINTEGRO
-    public static void jugarHastaObtenerPremioSinReintegro(Sorteo sorteo){
+    public  void jugarHastaObtenerPremioSinReintegro(){
         int contadorIntentos=0;
         do{
             Lib.borrarPantalla();
-            sorteo=new Sorteo();
+            bombo50.rellenarBombo();
+            bombo50.nuevoNumeroSorteo();
+            bomboReintegro.generarReintegro();
             comprobarPremioSinReintegro();
             contadorIntentos++;
             System.out.print(contadorIntentos);
             System.out.println("Intentos: "+contadorIntentos);
 
-        }while (sorteo.getPremio()==PREMIOS.SIN_PREMIO);
+        }while (getPremio()==PREMIOS.SIN_PREMIO);
 
     }
     //METODO JUGAR 10000 VECES
-    public static void jugar10000veces(Sorteo sorteo){
+    public void jugar10000veces(){
         int contador=0;
         int contadorPremioPrimera=0;
         int contadorPremioSegunda=0;
@@ -104,32 +106,33 @@ public class Sorteo {
         int contadorPremioReintegro=0;
         do{
             Lib.borrarPantalla();
-            sorteo=new Sorteo();
-            System.out.println("\n"+sorteo.getSorteoString());
-            System.out.println("Reintegro: "+sorteo.getReintegro());
+            bombo50.rellenarBombo();
+            bombo50.nuevoNumeroSorteo();
+            bomboReintegro.generarReintegro();
+            System.out.println("\n"+getSorteoString());
+            System.out.println("Reintegro: "+getReintegro());
             System.out.println("Jugada: "+(contador+1));
-
             comprobarPremioConReintegro();
 
-            if(PREMIOS.ESPECIAL==sorteo.getPremio()){
-
+            if(PREMIOS.ESPECIAL==getPremio()){
+                contadorPremioEspecial++;
             }
-            else if(PREMIOS.PRIMERA==sorteo.getPremio()){
+            else if(PREMIOS.PRIMERA==getPremio()){
                 contadorPremioPrimera++;
             }
-            else if(PREMIOS.SEGUNDA==sorteo.getPremio()){
+            else if(PREMIOS.SEGUNDA==getPremio()){
                 contadorPremioSegunda++;
             }
-            else if(PREMIOS.TERCERA==sorteo.getPremio()){
+            else if(PREMIOS.TERCERA==getPremio()){
                 contadorPremioTercera++;
             }
-            else if(PREMIOS.QUARTA==sorteo.getPremio()){
+            else if(PREMIOS.QUARTA==getPremio()){
                 contadorPremioQuarta++;
             }
-            else if(PREMIOS.QUINTA==sorteo.getPremio()){
+            else if(PREMIOS.QUINTA==getPremio()){
                 contadorPremioQuinta++;
             }
-            else if(PREMIOS.REINTEGRO==sorteo.getPremio()){
+            else if(PREMIOS.REINTEGRO==getPremio()){
                 contadorPremioReintegro++;
             }
             contador++;
@@ -147,17 +150,21 @@ public class Sorteo {
         System.out.println("ESPECIAL: "+contadorPremioEspecial);
     }
 
+
     //Metodo jugar hasta obtener el premio ESPECIAL
-    public static void jugarHastaGanarPremioEspecial(Sorteo sorteo){
+    public void jugarHastaGanarPremioEspecial(){
         int contador=0;
         do{
             Lib.borrarPantalla();
-            sorteo=new Sorteo();
+            bombo50.rellenarBombo();
+            bombo50.getBombo50();
+            bombo50.nuevoNumeroSorteo();
+            bomboReintegro.generarReintegro();
             comprobarEspecial();
             contador++;
-        }while(sorteo.getPremio()!=PREMIOS.ESPECIAL);
-        System.out.println("\n"+sorteo.getSorteoString());
-        System.out.println("Reintegro: "+sorteo.getReintegro());
+        }while(getPremio()!=PREMIOS.ESPECIAL);
+        System.out.println("\n"+getSorteoString());
+        System.out.println("Reintegro: "+getReintegro());
         System.out.println("Lo has conseguido en: "+contador+" intentos.");
     }
     //
@@ -165,7 +172,7 @@ public class Sorteo {
     //
 
     //Metodo comprobar Reintegro
-    public static PREMIOS compruebaReintegro(){
+    public  PREMIOS compruebaReintegro(){
 
         if(reintegroSorteo==reintegroJugada){
             setPremio(PREMIOS.REINTEGRO);
@@ -179,7 +186,7 @@ public class Sorteo {
 
 
     //Metodo comprobar Premio con reintegro
-    public static PREMIOS comprobarPremioConReintegro(){
+    public  PREMIOS comprobarPremioConReintegro(){
         int contador=0;
         boolean acertoComplementario=false;
         for(int i=0;i<numerosSorteo.length-1;i++){
@@ -194,55 +201,57 @@ public class Sorteo {
                 acertoComplementario=true;
             }
         }
-        if (contador==3){
-            setPremio(PREMIOS.QUINTA);
+        if(contador==6&&reintegroSorteo==reintegroJugada){
+            setPremio(PREMIOS.ESPECIAL);
+            System.out.println("\nFUCK YEAHH!!! PREMIO ESPECIAL!!! DING DING DING MONEY MONEY");
+            System.out.println("\n"+premio+"!\n");
+
+        }else if(contador==6){
+            setPremio(PREMIOS.PRIMERA);
             System.out.println("\nHA GANADO!!!");
-            System.out.println("\n"+premio+"!\n");return premio;
+            System.out.println("\n"+premio+"!\n");
+
         }
-        else if(contador==4){
-            setPremio(PREMIOS.QUARTA);
+        else if(contador==5&&acertoComplementario){
+            setPremio(PREMIOS.SEGUNDA);
             System.out.println("\nHA GANADO!!!");
             System.out.println("\n"+premio+"!\n");
         }
         else if(contador==5){
             setPremio(PREMIOS.TERCERA);
             System.out.println("\nHA GANADO!!!");
-            System.out.println("\n"+premio+"!\n");
+
         }
-        else if(contador==5&&acertoComplementario){
-            setPremio(PREMIOS.SEGUNDA);
+        else if(contador==4){
+            setPremio(PREMIOS.QUARTA);
             System.out.println("\nHA GANADO!!!");
             System.out.println("\n"+premio+"!\n");
 
         }
-        else if(contador==6){
-            setPremio(PREMIOS.PRIMERA);
-            premio=PREMIOS.QUARTA;
+        else if (contador==3){
+            setPremio(PREMIOS.QUINTA);
             System.out.println("\nHA GANADO!!!");
-            System.out.println("\n"+premio+"!\n");
-        }
-        else if(contador==6&&reintegroSorteo==reintegroJugada){
-            setPremio(PREMIOS.ESPECIAL);
-            System.out.println("\nFUCK YEAHH!!! PREMIO ESPECIAL!!! DING DING DING MONEY MONEY");
             System.out.println("\n"+premio+"!\n");
 
         }
         else if(reintegroSorteo==reintegroJugada){
-            premio=PREMIOS.REINTEGRO;
+            setPremio(PREMIOS.REINTEGRO);
             System.out.println("\nRecupera su dinero");
             System.out.println("\n"+premio+"!\n");
+
         }
         else {
-            premio=PREMIOS.SIN_PREMIO;
+            setPremio(PREMIOS.SIN_PREMIO);
             System.out.println("\nLo sentimos no hay premio para su boleto");
             System.out.println("\n"+premio+" =( \n");
+
         }
         return premio;
 
     }
 
     //Comprobar premio sin Reintegro
-    public static PREMIOS comprobarPremioSinReintegro(){
+    public  PREMIOS comprobarPremioSinReintegro(){
         int contador=0;
         boolean acertoComplementario=false;
         for(int i=0;i<numerosSorteo.length-1;i++){
@@ -293,7 +302,7 @@ public class Sorteo {
 
     }
     //Metodo comprobar premio Escpecial
-    public static PREMIOS comprobarEspecial(){
+    public PREMIOS comprobarEspecial(){
         int contador=0;
         
         for(int i=0;i<numerosSorteo.length-1;i++){
@@ -311,5 +320,8 @@ public class Sorteo {
 
         }
         return premio;
+    }
+    private void nuevoSorteo(){
+
     }
 }

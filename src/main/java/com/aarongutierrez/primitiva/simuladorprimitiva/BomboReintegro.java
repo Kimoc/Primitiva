@@ -8,10 +8,14 @@ public class BomboReintegro {
 
     //Constructor Bombo reintegro
     BomboReintegro(){
-        reintegro= Lib.random(0,9);
+        generarReintegro();
     }
     //Getter reintegro
     public int getReintegro() {
+        return reintegro;
+    }
+    public int generarReintegro (){
+        reintegro= Lib.random(0,9);
         return reintegro;
     }
 

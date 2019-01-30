@@ -6,7 +6,6 @@ public class Bombo50 {
 
     private int[] bombo50;
     private int complementario;
-    private boolean esRepetido;
     private int[] numerosBombo;
 
 
@@ -18,18 +17,7 @@ public class Bombo50 {
         //rellenamos bombo
         rellenarBombo();
         //
-        int numeroRandom;
-        int punteroPosicionFinal=numerosBombo.length-1;
-        for(int i=0;i<bombo50.length;i++){
-            numeroRandom=Lib.random(0,punteroPosicionFinal);
-            bombo50[i]=numerosBombo[numeroRandom];
-            numerosBombo[numeroRandom]=numerosBombo[punteroPosicionFinal];
-            punteroPosicionFinal--;
-
-
-
-        }
-
+       nuevoNumeroSorteo();
 
     }
     //retorna un array de numeros 6+complementario
@@ -45,4 +33,15 @@ public class Bombo50 {
             numerosBombo[i-1]=i;
         }
     }
+    public void nuevoNumeroSorteo(){
+        int numeroRandom;
+        int punteroPosicionFinal=numerosBombo.length-1;
+        for(int i=0;i<bombo50.length;i++){
+            numeroRandom=Lib.random(0,punteroPosicionFinal);
+            bombo50[i]=numerosBombo[numeroRandom];
+            numerosBombo[numeroRandom]=numerosBombo[punteroPosicionFinal];
+            punteroPosicionFinal--;
+        }
+    }
+
 }

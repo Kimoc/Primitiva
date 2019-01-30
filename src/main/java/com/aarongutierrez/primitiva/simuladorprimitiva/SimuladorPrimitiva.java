@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class SimuladorPrimitiva {
 
     private Scanner lector;
-//todo quitar el instanciar boleto
 
     private static Boleto boleto;
     private static Sorteo sorteo;
@@ -23,7 +22,7 @@ public class SimuladorPrimitiva {
                     switch (opcion){
                         case 1:
                             //Jugador rellena Boleto
-                            boleto=Boleto.rellenarBoleto();
+                            boleto=boleto.rellenarBoleto();
                             mostrarJugada(boleto);
                             System.out.println("\nGracias por su compra y mucha suerte");
                             Lib.pausa();
@@ -53,39 +52,38 @@ public class SimuladorPrimitiva {
                 case 3:
                     //Menu Jugar
                     opcion=menuJugar();
+                    sorteo=new Sorteo();
                     switch (opcion){
                         //Jugada unica
+
                         case 1:
-                            sorteo=new Sorteo();
-                            Sorteo.JugadaUnica(sorteo);
+                            sorteo.jugadaUnica();
                             mostrarJugada(boleto);
                             Lib.pausa();
                             break;
                         //Jugar hasta obtener premio
                         case 2:
-                            sorteo=new Sorteo();
-                            Sorteo.JugarHastaObtenerPremio(sorteo);
+
+                            sorteo.jugarHastaObtenerPremio();
                             mostrarJugada(boleto);
                             Lib.pausa();
                             break;
                         //Jugar hasta obtener premio sin el reintegro
                         case 3:
-                            sorteo=new Sorteo();
-                            Sorteo.jugarHastaObtenerPremioSinReintegro(sorteo);
+                            sorteo.jugarHastaObtenerPremioSinReintegro();
                             mostrarJugada(boleto);
                             Lib.pausa();
                             break;
                         //Jugar 10000 veces
                         case 4:
-                            sorteo=new Sorteo();
-                            Sorteo.jugar10000veces(sorteo);
+                            sorteo.jugar10000veces();
                             Lib.pausa();
                             mostrarJugada(boleto);
                             break;
                         //Jugar hasta obtener el premio espcial
                         case 5:
                             sorteo=new Sorteo();
-                            Sorteo.jugarHastaGanarPremioEspecial(sorteo);
+                            sorteo.jugarHastaGanarPremioEspecial();
                             mostrarJugada(boleto);
                             Lib.pausa();
                             break;
