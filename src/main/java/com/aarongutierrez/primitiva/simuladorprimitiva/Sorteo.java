@@ -6,16 +6,17 @@ import java.util.Arrays;
 
 
 public class Sorteo {
-    private  enum PREMIOS{PRIMERA,SEGUNDA,TERCERA,QUARTA,QUINTA,ESPECIAL,REINTEGRO,SIN_PREMIO}
+    private  enum Premios{PRIMERA,SEGUNDA,TERCERA,QUARTA,QUINTA,ESPECIAL,REINTEGRO,SIN_PREMIO}
     private  static Bombo50 bombo50;
     private  static BomboReintegro bomboReintegro;
     private static Boleto jugada;
-    private static PREMIOS premio;
+    private static Premios premio;
     private static int reintegroSorteo;
     private static int reintegroJugada;
     private static int complementarioSorteo;
     private static int[] numerosJugada;
     private static int[] numerosSorteo;
+
 
 
 
@@ -30,7 +31,7 @@ public class Sorteo {
         numerosJugada=jugada.getBoleto();
         numerosSorteo=bombo50.getBombo50();
         complementarioSorteo=bombo50.getComplementario();
-        premio=PREMIOS.SIN_PREMIO;
+        premio=Premios.SIN_PREMIO;
 
 
 
@@ -44,10 +45,10 @@ public class Sorteo {
     public int getReintegro() {
         return bomboReintegro.getReintegro();
     }
-    public PREMIOS getPremio(){
+    public Premios getPremio(){
         return premio;
     }
-    private void setPremio(PREMIOS premio) {
+    private void setPremio(Premios premio) {
         this.premio = premio;
     }
 
@@ -73,7 +74,7 @@ public class Sorteo {
             bomboReintegro.generarReintegro();
             comprobarPremioConReintegro();
             contadorIntentos++;
-        }while (premio==PREMIOS.SIN_PREMIO);
+        }while (premio==Premios.SIN_PREMIO);
         System.out.println("\n"+getSorteoString());
         System.out.println("Reintegro: "+getReintegro());
         System.out.println("Intentos: "+contadorIntentos+"\n");
@@ -90,7 +91,7 @@ public class Sorteo {
             contadorIntentos++;
 
 
-        }while (premio==PREMIOS.SIN_PREMIO);
+        }while (premio==Premios.SIN_PREMIO);
         System.out.print(contadorIntentos);
         System.out.println("Intentos: "+contadorIntentos);
     }
@@ -111,25 +112,25 @@ public class Sorteo {
             bomboReintegro.generarReintegro();
             comprobarPremioConReintegro();
 
-            if(PREMIOS.ESPECIAL==getPremio()){
+            if(Premios.ESPECIAL==getPremio()){
                 contadorPremioEspecial++;
             }
-            else if(PREMIOS.PRIMERA==getPremio()){
+            else if(Premios.PRIMERA==getPremio()){
                 contadorPremioPrimera++;
             }
-            else if(PREMIOS.SEGUNDA==getPremio()){
+            else if(Premios.SEGUNDA==getPremio()){
                 contadorPremioSegunda++;
             }
-            else if(PREMIOS.TERCERA==getPremio()){
+            else if(Premios.TERCERA==getPremio()){
                 contadorPremioTercera++;
             }
-            else if(PREMIOS.QUARTA==getPremio()){
+            else if(Premios.QUARTA==getPremio()){
                 contadorPremioQuarta++;
             }
-            else if(PREMIOS.QUINTA==getPremio()){
+            else if(Premios.QUINTA==getPremio()){
                 contadorPremioQuinta++;
             }
-            else if(PREMIOS.REINTEGRO==getPremio()){
+            else if(Premios.REINTEGRO==getPremio()){
                 contadorPremioReintegro++;
             }
             contador++;
@@ -159,7 +160,7 @@ public class Sorteo {
             bomboReintegro.generarReintegro();
             comprobarEspecial();
             contador++;
-        }while(getPremio()!=PREMIOS.ESPECIAL);
+        }while(premio!=Premios.ESPECIAL);
         System.out.println("\n"+getSorteoString());
         System.out.println("Reintegro: "+getReintegro());
         System.out.println("Lo has conseguido en: "+contador+" intentos.");
@@ -168,7 +169,7 @@ public class Sorteo {
     //METODOS COMPROBACION
     //
     //Metodo comprobar Premio con reintegro
-    public  PREMIOS comprobarPremioConReintegro(){
+    public  Premios comprobarPremioConReintegro(){
         int contador=0;
         boolean acertoComplementario=false;
         for(int i=0;i<numerosSorteo.length-1;i++){
@@ -183,44 +184,47 @@ public class Sorteo {
                 acertoComplementario=true;
             }
         }
-        if(getReintegro()==reintegroJugada){
-            premio=PREMIOS.REINTEGRO;
-            System.out.println("\n"+PREMIOS.REINTEGRO);
+        //
+
+
+        //
+        if(contador==6&&getReintegro()==reintegroJugada){
+            premio=Premios.ESPECIAL;
+            System.out.println("\n"+Premios.ESPECIAL+"!!");
+            System.out.println("\nFUCK YEAHH!!! PREMIO ESPECIAL!!! DING DING DING MONEY MONEY");
+        }else if(contador==6){
+            premio=Premios.PRIMERA;
+            System.out.println("\n"+Premios.PRIMERA+"!!");
+            System.out.println("\nHA GANADO!!!");
+        }
+        else if(contador==5&&acertoComplementario){
+            premio=Premios.SEGUNDA;
+            System.out.println("\n"+Premios.SEGUNDA);
+            System.out.println("\nHA GANADO!!!");
+        }
+        else if(contador==5){
+            premio=Premios.TERCERA;
+            System.out.println("\n"+Premios.TERCERA+"!!");
+            System.out.println("\nHA GANADO!!!");
+        }
+        else if(contador==4){
+            premio=Premios.QUARTA;
+            System.out.println("\n"+Premios.QUARTA+"!!");
+            System.out.println("\nHA GANADO!!!");
+        }
+        else if (contador==3){
+            premio=Premios.QUINTA;
+            System.out.println("\n"+Premios.QUINTA+"!!");
+            System.out.println("\nHA GANADO!!!");
+        }
+        else if(getReintegro()==reintegroJugada){
+            premio=Premios.REINTEGRO;
+            System.out.println("\n"+Premios.REINTEGRO);
             System.out.println("\nRecupera su dinero");
         }
         else {
-            premio=PREMIOS.SIN_PREMIO;
+            premio=Premios.SIN_PREMIO;
             System.out.println("\nLo sentimos no hay premio para su boleto");
-        }
-
-        if(contador>5&&getReintegro()==reintegroJugada){
-            premio=PREMIOS.ESPECIAL;
-            System.out.println("\n"+PREMIOS.ESPECIAL+"!!");
-            System.out.println("\nFUCK YEAHH!!! PREMIO ESPECIAL!!! DING DING DING MONEY MONEY");
-        }else if(contador>5){
-            premio=PREMIOS.PRIMERA;
-            System.out.println("\n"+PREMIOS.PRIMERA+"!!");
-            System.out.println("\nHA GANADO!!!");
-        }
-        else if(contador>4&&acertoComplementario){
-            premio=PREMIOS.SEGUNDA;
-            System.out.println("\n"+PREMIOS.SEGUNDA);
-            System.out.println("\nHA GANADO!!!");
-        }
-        else if(contador>4){
-            premio=PREMIOS.TERCERA;
-            System.out.println("\n"+PREMIOS.TERCERA+"!!");
-            System.out.println("\nHA GANADO!!!");
-        }
-        else if(contador>3){
-            premio=PREMIOS.QUARTA;
-            System.out.println("\n"+PREMIOS.QUARTA+"!!");
-            System.out.println("\nHA GANADO!!!");
-        }
-        else if (contador>2){
-            premio=PREMIOS.QUINTA;
-            System.out.println("\n"+PREMIOS.QUINTA+"!!");
-            System.out.println("\nHA GANADO!!!");
         }
 
         return premio;
@@ -228,7 +232,7 @@ public class Sorteo {
     }
 
     //Comprobar premio sin Reintegro
-    public  PREMIOS comprobarPremioSinReintegro(){
+    public  Premios comprobarPremioSinReintegro(){
         int contador=0;
         boolean acertoComplementario=false;
         for(int i=0;i<numerosSorteo.length-1;i++){
@@ -243,44 +247,44 @@ public class Sorteo {
                 acertoComplementario=true;
             }
         }
-        if(contador>5&&getReintegro()==reintegroJugada){
-            premio=PREMIOS.ESPECIAL;
-            System.out.println("\n"+PREMIOS.ESPECIAL+"!!");
+        if(contador==6&&getReintegro()==reintegroJugada){
+            premio=Premios.ESPECIAL;
+            System.out.println("\n"+Premios.ESPECIAL+"!!");
             System.out.println("\nFUCK YEAHH!!! PREMIO ESPECIAL!!! DING DING DING MONEY MONEY");
-        }else if(contador>5){
-            premio=PREMIOS.PRIMERA;
-            System.out.println("\n"+PREMIOS.PRIMERA+"!!");
+        }else if(contador==6){
+            premio=Premios.PRIMERA;
+            System.out.println("\n"+Premios.PRIMERA+"!!");
             System.out.println("\nHA GANADO!!!");
         }
-        else if(contador>4&&acertoComplementario){
-            premio=PREMIOS.SEGUNDA;
-            System.out.println("\n"+PREMIOS.SEGUNDA);
+        else if(contador==5&&acertoComplementario){
+            premio=Premios.SEGUNDA;
+            System.out.println("\n"+Premios.SEGUNDA);
             System.out.println("\nHA GANADO!!!");
         }
-        else if(contador>4){
-            premio=PREMIOS.TERCERA;
-            System.out.println("\n"+PREMIOS.TERCERA+"!!");
+        else if(contador==5){
+            premio=Premios.TERCERA;
+            System.out.println("\n"+Premios.TERCERA+"!!");
             System.out.println("\nHA GANADO!!!");
         }
-        else if(contador>3){
-            premio=PREMIOS.QUARTA;
-            System.out.println("\n"+PREMIOS.QUARTA+"!!");
+        else if(contador==4){
+            premio=Premios.QUARTA;
+            System.out.println("\n"+Premios.QUARTA+"!!");
             System.out.println("\nHA GANADO!!!");
         }
-        else if (contador>2){
-            premio=PREMIOS.QUINTA;
-            System.out.println("\n"+PREMIOS.QUINTA+"!!");
+        else if (contador==3){
+            premio=Premios.QUINTA;
+            System.out.println("\n"+Premios.QUINTA+"!!");
             System.out.println("\nHA GANADO!!!");
         }
         else {
-            premio=PREMIOS.SIN_PREMIO;
+            premio=Premios.SIN_PREMIO;
             System.out.println("\nLo sentimos no hay premio para su boleto");
         }
         return premio;
 
     }
     //Metodo comprobar premio Escpecial
-    public PREMIOS comprobarEspecial(){
+    public Premios comprobarEspecial(){
         int contador=0;
         
         for(int i=0;i<numerosSorteo.length-1;i++){
@@ -291,7 +295,7 @@ public class Sorteo {
             }
         }
         if(contador==6&&getReintegro()==reintegroJugada){
-            premio=PREMIOS.ESPECIAL;
+            premio=Premios.ESPECIAL;
             System.out.println("\n"+premio+"!\n");
             System.out.println("\nFUCK YEAHH!!! PREMIO ESPECIAL!!! DING DING DING MONEY MONEY");
 
