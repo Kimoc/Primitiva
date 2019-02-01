@@ -81,7 +81,6 @@ public class SimuladorPrimitiva {
                         //Jugar 10000 veces
                         case 4:
                             sorteo.jugar10000veces();
-                            boleto.mostrarJugada();
                             Lib.pausa();
                             break;
                         //Jugar hasta obtener el premio espcial
