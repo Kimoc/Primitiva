@@ -2,6 +2,8 @@ package com.aarongutierrez.primitiva.simuladorprimitiva;
 
 import com.aarongutierrez.primitiva.util.Lib;
 
+import java.util.Arrays;
+
 public class Bombo50 {
 
     private int[] bombo50;
@@ -22,17 +24,20 @@ public class Bombo50 {
     }
     //retorna un array de numeros 6+complementario
     public int[] getBombo50() {
+        Arrays.sort(bombo50);
         return bombo50;
     }
     //Retorna el valor del numero ocmplementario que ha salido en el bombo
     public int getComplementario() {
         return complementario=bombo50[bombo50.length-1];
     }
+    //rellena  el bombo ordenado de 1 a 49
     public void rellenarBombo(){
         for(int i =1 ; i<=numerosBombo.length;i++){
             numerosBombo[i-1]=i;
         }
     }
+    //genera nuevo numero para el sorteo
     public void nuevoNumeroSorteo(){
         int numeroRandom;
         int punteroPosicionFinal=numerosBombo.length-1;

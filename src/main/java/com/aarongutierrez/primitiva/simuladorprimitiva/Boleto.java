@@ -32,29 +32,26 @@ public class Boleto {
             numerosBoleto[random]=numerosBoleto[puntero];
             puntero--;
         }
+        //ordena el boleto
 
 
         //añade el complementario
         reintegro=Lib.random(0,9);
     }
 
-    //Construcotr para el metetodo Rellenar boleto
-    public Boleto(int[] numeros,int reintegro){
-        this.boleto=numeros;
-        this.reintegro=reintegro;
-    }
-
     //GETTERS
 
     //Getter para la administracion
-    public int[] getBoleto() {
+    public int[] getNumerosBoleto() {
+          Arrays.sort(boleto);
           return boleto;
     }
+
 
     //getter para salida de consola
     //Devuelve el objeto Boleto en formato String
     public String getBoletoString() {
-
+        Arrays.sort(boleto);
         return Arrays.toString(boleto)+" "+reintegro;
     }
 
@@ -70,8 +67,8 @@ public class Boleto {
     //METODOS
 
     //Metodo para rellenar boleto
-    public static Boleto rellenarBoleto(){
-        Boleto boletoJugador;
+    public void rellenarBoleto(){
+
         int numero;
         lector=new Scanner(System.in);
         boleto=new int[6];
@@ -109,10 +106,10 @@ public class Boleto {
         //añade un complementario random
         reintegro= Lib.random(0,9);
 
+        Arrays.sort(boleto);
 
-        boletoJugador=new Boleto(boleto,reintegro);
 
-        return boletoJugador;
+
 
     }
     public void rellenarNumerosDisponibles(){
@@ -120,6 +117,26 @@ public class Boleto {
             numerosBoleto[i-1]=i;
         }
     }
+
+    //METODOS VISUALIZACION
+
+    //Metodo para mostra el boleto comprado
+    public void mostrarJugada() {
+        System.out.println("Su boleto es :");
+        for (int i = 0; i <getBoletoString().length(); i++) {
+            System.out.print("=");
+        }
+        System.out.println();
+        for (int z = 0; z < getBoletoString().length() -1; z++) {
+            System.out.print(" ");
+        }
+        System.out.print("R \n");
+        System.out.println(getBoletoString());
+        for (int y = 0; y < getBoletoString().length(); y++) {
+            System.out.print("=");
+        }
+    }
+
 
 }
 

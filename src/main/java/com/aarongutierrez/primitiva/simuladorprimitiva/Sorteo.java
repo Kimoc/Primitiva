@@ -9,7 +9,6 @@ public class Sorteo {
     private  enum Premios{PRIMERA,SEGUNDA,TERCERA,QUARTA,QUINTA,ESPECIAL,REINTEGRO,SIN_PREMIO}
     private  static Bombo50 bombo50;
     private  static BomboReintegro bomboReintegro;
-    private static Boleto jugada;
     private static Premios premio;
     private static int reintegroSorteo;
     private static int reintegroJugada;
@@ -25,10 +24,9 @@ public class Sorteo {
 
         bombo50 =new Bombo50();
         bomboReintegro=new BomboReintegro();
-        jugada=SimuladorPrimitiva.getBoletoComprado();
         reintegroJugada=SimuladorPrimitiva.getReintegroBoletoComprado();
         reintegroSorteo=bomboReintegro.getReintegro();
-        numerosJugada=jugada.getBoleto();
+        numerosJugada=SimuladorPrimitiva.getBoletoComprado().getNumerosBoleto();
         numerosSorteo=bombo50.getBombo50();
         complementarioSorteo=bombo50.getComplementario();
         premio=Premios.SIN_PREMIO;
@@ -54,10 +52,8 @@ public class Sorteo {
 
     //METODO JUGADA UNICA
     public  void jugadaUnica(){
-
-        System.out.println("\n"+getSorteoString());
-        System.out.println("Reintegro: "+getReintegro()+"\n");
         comprobarPremioConReintegro();
+        mostrarSorteo();
 
     }
     //METDODO JUGAR HASTA OBTENER PREMIO
@@ -72,9 +68,7 @@ public class Sorteo {
             comprobarPremioConReintegro();
             contadorIntentos++;
         }while (premio==Premios.SIN_PREMIO);
-        System.out.println("\n"+getSorteoString());
-        System.out.println("Reintegro: "+getReintegro());
-        System.out.println("Intentos: "+contadorIntentos+"\n");
+        mostrarSorteo();
     }
     //METODO JUGAR HASTA OBTENER PREMIO SIN REINTEGRO
     public  void jugarHastaObtenerPremioSinReintegro(){
@@ -89,7 +83,7 @@ public class Sorteo {
 
 
         }while (premio==Premios.SIN_PREMIO);
-        System.out.print(contadorIntentos);
+        mostrarSorteo();
         System.out.println("Intentos: "+contadorIntentos);
     }
     //METODO JUGAR 10000 VECES
@@ -137,11 +131,11 @@ public class Sorteo {
         System.out.println("***    PREMIOS     *");
         System.out.println("Premios conseguidos:");
         System.out.println("REINTEGROS: "+contadorPremioReintegro);
-        System.out.println("PRIMERA: "+contadorPremioPrimera);
-        System.out.println("SEGUNDA: "+contadorPremioSegunda);
-        System.out.println("TERCERA: "+contadorPremioTercera);
-        System.out.println("QUARTA: "+contadorPremioQuarta);
         System.out.println("QUINTA: "+contadorPremioQuinta);
+        System.out.println("QUARTA: "+contadorPremioQuarta);
+        System.out.println("TERCERA: "+contadorPremioTercera);
+        System.out.println("SEGUNDA: "+contadorPremioSegunda);
+        System.out.println("PRIMERA: "+contadorPremioPrimera);
         System.out.println("ESPECIAL: "+contadorPremioEspecial);
     }
 
@@ -158,8 +152,7 @@ public class Sorteo {
             comprobarEspecial();
             contador++;
         }while(premio!=Premios.ESPECIAL);
-        System.out.println("\n"+getSorteoString());
-        System.out.println("Reintegro: "+getReintegro());
+        mostrarSorteo();
         System.out.println("Lo has conseguido en: "+contador+" intentos.");
     }
     //
@@ -260,7 +253,7 @@ public class Sorteo {
         }
         if(contador==6&&getReintegro()==reintegroJugada){
             premio=Premios.ESPECIAL;
-            System.out.println("\n"+premio+"!\n");
+            mostrarSorteo();
             System.out.println("\nFUCK YEAHH!!! PREMIO ESPECIAL!!! DING DING DING MONEY MONEY\n");
 
 
@@ -270,8 +263,22 @@ public class Sorteo {
 
     //Metodo visualizar Sorteo
     public void mostrarSorteo(){
-        System.out.println(Arrays.toString(numerosSorteo));
-        System.out.println("Reintegro: "+reintegroJugada);
+        System.out.println("Los numeros del sorteo son:");
+        for (int i = 0; i <Arrays.toString(numerosSorteo).length(); i++) {
+            System.out.print("*");
+        }
+        System.out.println();
+        for (int i = 0; i <Arrays.toString(numerosSorteo).length()-2; i++) {
+            System.out.print(" ");
+        }
+        System.out.print("C");
+        System.out.println("\n"+Arrays.toString(numerosSorteo));
+        for (int i = 0; i <Arrays.toString(numerosSorteo).length(); i++) {
+            System.out.print("*");
+        }
+        System.out.println("\nReintegro: "+reintegroJugada);
         System.out.println("Premio obtenido: "+premio);
+
+        System.out.println();
     }
 }

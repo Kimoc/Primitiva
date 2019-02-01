@@ -21,20 +21,21 @@ public class SimuladorPrimitiva {
                 case 1:
                     //Menu Comprar Boleto
                     opcion=menuBoleto();
+                    boleto=new Boleto();
                     switch (opcion){
+
                         case 1:
                             //Jugador rellena Boleto
-                            boleto=boleto.rellenarBoleto();
-                            mostrarJugada(boleto);
+
+                            boleto.rellenarBoleto();
+                            boleto.mostrarJugada();
                             System.out.println("\nGracias por su compra y mucha suerte");
                             Lib.pausa();
                             boletoComprado=true;
                             break;
                         case 2:
                             //Jugador se le da un Boleto aleatorio
-                            Boleto boletoRandom=new Boleto();
-                            boleto=boletoRandom;
-                            mostrarJugada(boleto);
+                            boleto.mostrarJugada();
                             System.out.println("\nGracias por su compra y mucha suerte");
                             Lib.pausa();
                             boletoComprado=true;
@@ -50,7 +51,7 @@ public class SimuladorPrimitiva {
                     break;
                 case 2:
                     //Muestra el boleto del Jugador
-                    mostrarJugada(boleto);
+                    boleto.mostrarJugada();
                     Lib.pausa();
                     break;
                 case 3:
@@ -62,32 +63,32 @@ public class SimuladorPrimitiva {
 
                         case 1:
                             sorteo.jugadaUnica();
-                            mostrarJugada(boleto);
+                            boleto.mostrarJugada();
                             Lib.pausa();
                             break;
                         //Jugar hasta obtener premio
                         case 2:
                             sorteo.jugarHastaObtenerPremio();
-                            mostrarJugada(boleto);
+                            boleto.mostrarJugada();
                             Lib.pausa();
                             break;
                         //Jugar hasta obtener premio sin el reintegro
                         case 3:
                             sorteo.jugarHastaObtenerPremioSinReintegro();
-                            mostrarJugada(boleto);
+                            boleto.mostrarJugada();
                             Lib.pausa();
                             break;
                         //Jugar 10000 veces
                         case 4:
                             sorteo.jugar10000veces();
-                            mostrarJugada(boleto);
+                            boleto.mostrarJugada();
                             Lib.pausa();
                             break;
                         //Jugar hasta obtener el premio espcial
                         case 5:
                             sorteo=new Sorteo();
                             sorteo.jugarHastaGanarPremioEspecial();
-                            mostrarJugada(boleto);
+                            boleto.mostrarJugada();
                             Lib.pausa();
                             break;
                         case 0:
@@ -135,11 +136,13 @@ public class SimuladorPrimitiva {
             //Comprueba que el boleto  se ha comprado
             if(opcion==3&&boletoComprado==false){
                 System.out.println("ERROR! No ha comprado un boleto. Seleccione opcion [1] para comprar boleto. ");
+                Lib.pausa();
                 opcion=-1;
             }
             //Comprueba que el boleto se ha comprado
             if(opcion==2&&boletoComprado==false){
                 System.out.println("ERROR! No ha comprado un boleto. Seleccione opcion [1] para comprar boleto. ");
+                Lib.pausa();
                 opcion=-1;
             }
         }while(opcion<0||opcion>3);
@@ -160,15 +163,14 @@ public class SimuladorPrimitiva {
             System.out.println(" 0.Salir\n");
             opcion =lector.nextInt();
             lector.nextLine();
-            /*
-             *Validacion input opcion en consola
-             */
+            //Validacion input opcion en consola
             if(opcion<0||opcion>2){
                 System.out.println("Opcion incorrecta! Elija una opcion del menu[0-2]");
             }
         }while(opcion<0||opcion>2);
         return opcion;
     }
+    //Submenu para jugar
     private int menuJugar(){
         int opcion=-1;
         do{
@@ -185,9 +187,7 @@ public class SimuladorPrimitiva {
             System.out.println(" 0.Salir\n");
             opcion =lector.nextInt();
             lector.nextLine();
-            /*
-             *Validacion input opcion en consola
-             */
+            //Validacion input opcion en consola
             if(opcion<0||opcion>5){
                 System.out.println("Opcion incorrecta! Elija una opcion del menu[0-5]");
             }
@@ -195,28 +195,7 @@ public class SimuladorPrimitiva {
         return opcion;
     }
 
-    //METODOS VISUALIZACION
-
-    //Metodo para mostra el boleto comprado
-    private static void mostrarJugada(Boleto jugada) {
-            System.out.println("Su boleto es :");
-            for (int i = 0; i < jugada.getBoletoString().length(); i++) {
-                System.out.print("=");
-            }
-            System.out.println();
-            for (int z = 0; z < jugada.getBoletoString().length() -1; z++) {
-                System.out.print(" ");
-            }
-            System.out.print("R \n");
-            System.out.println(jugada.getBoletoString());
-            for (int y = 0; y < jugada.getBoletoString().length(); y++) {
-                System.out.print("=");
-            }
-    }
-    //Metodo para visualizar Sorteo
-
-
-    //getter boleto generado
+    //getter boleto comprado
     public static Boleto getBoletoComprado(){
         return boleto;
     }
