@@ -72,6 +72,7 @@ public class Sorteo {
     }
     //METODO JUGAR HASTA OBTENER PREMIO SIN REINTEGRO
     public  void jugarHastaObtenerPremioSinReintegro(){
+        Lib.borrarPantalla();
         int contadorIntentos=0;
         do{
             Lib.borrarPantalla();
@@ -88,6 +89,7 @@ public class Sorteo {
     }
     //METODO JUGAR 10000 VECES
     public void jugar10000veces(){
+        Lib.borrarPantalla();
         int contador=0;
         int contadorPremioPrimera=0;
         int contadorPremioSegunda=0;
@@ -142,6 +144,7 @@ public class Sorteo {
 
     //Metodo jugar hasta obtener el premio ESPECIAL
     public void jugarHastaGanarPremioEspecial(){
+        Lib.borrarPantalla();
         int contador=0;
         do{
             Lib.borrarPantalla();
